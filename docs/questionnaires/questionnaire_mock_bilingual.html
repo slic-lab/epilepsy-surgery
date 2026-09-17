@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f8ff">
+    <title>Questionnaire bilingue — Démonstration</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        :root {
+            --background: #f6f8ff;
+            --surface: rgba(255, 255, 255, 0.92);
+            --text: #19223c;
+            --muted: #67708a;
+            --primary: #596be2;
+            --primary-dark: #4051c2;
+            --teal: #138d95;
+            --danger: #b44747;
+            --border: rgba(84, 100, 158, 0.18);
+            --shadow: 0 28px 80px rgba(55, 67, 113, 0.15);
+            --radius-large: 30px;
+            --radius-medium: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 10% 8%, rgba(105, 88, 222, 0.16), transparent 28rem),
+                radial-gradient(circle at 90% 10%, rgba(35, 180, 173, 0.14), transparent 25rem),
+                var(--background);
+            font-family: "Quicksand", sans-serif;
+            line-height: 1.6;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        .shell {
+            width: min(calc(100% - 1.25rem), 980px);
+            margin: 0 auto;
+            padding: 1.25rem 0 3rem;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 700;
+        }
+
+        .brand-mark {
+            display: grid;
+            width: 2.8rem;
+            height: 2.8rem;
+            place-items: center;
+            border-radius: 0.95rem;
+            color: white;
+            background: linear-gradient(145deg, #7886ff, #4a58cc);
+            box-shadow: 0 12px 28px rgba(74, 88, 204, 0.27);
+        }
+
+        .brand small {
+            display: block;
+            color: var(--muted);
+            font-size: 0.72rem;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+        }
+
+        .language-switch {
+            display: inline-flex;
+            gap: 0.3rem;
+            padding: 0.3rem;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .language-button {
+            padding: 0.55rem 0.9rem;
+            border: 0;
+            border-radius: 999px;
+            color: var(--muted);
+            background: transparent;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .language-button.active {
+            color: white;
+            background: var(--primary);
+            box-shadow: 0 8px 18px rgba(89, 107, 226, 0.24);
+        }
+
+        .card {
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius-large);
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow);
+        }
+
+        .hero {
+            padding: clamp(1.6rem, 5vw, 3rem);
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(135deg, #ffffff, rgba(244, 247, 255, 0.82));
+        }
+
+        .eyebrow {
+            margin: 0 0 0.6rem;
+            color: var(--primary-dark);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2rem, 6vw, 4rem);
+            line-height: 1.05;
+            letter-spacing: -0.05em;
+        }
+
+        .hero-description {
+            max-width: 760px;
+            margin: 1rem 0 0;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .notice {
+            margin: 1rem clamp(1rem, 4vw, 2rem) 0;
+            padding: 1rem 1.1rem;
+            border: 1px solid rgba(180, 71, 71, 0.2);
+            border-radius: 14px;
+            color: #743838;
+            background: #fff6f6;
+            font-weight: 600;
+        }
+
+        .progress-wrap {
+            padding: 1.5rem clamp(1rem, 4vw, 2rem) 0;
+        }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.55rem;
+            color: var(--muted);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .progress-track {
+            height: 0.8rem;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #e8ebf7;
+        }
+
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--primary), var(--teal));
+            transition: width 220ms ease;
+        }
+
+        form {
+            padding: clamp(1rem, 4vw, 2rem);
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: appear 220ms ease both;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-header {
+            margin-bottom: 1.25rem;
+        }
+
+        .page-header h2 {
+            margin: 0;
+            font-size: clamp(1.45rem, 4vw, 2.2rem);
+            letter-spacing: -0.03em;
+        }
+
+        .page-header p {
+            margin: 0.35rem 0 0;
+            color: var(--muted);
+        }
+
+        .question {
+            margin-bottom: 1rem;
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-medium);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .question.hidden {
+            display: none;
+        }
+
+        .question-title {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .required {
+            color: var(--danger);
+        }
+
+        .options {
+            display: grid;
+            gap: 0.65rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            padding: 0.8rem 0.9rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            border-color: rgba(89, 107, 226, 0.45);
+            box-shadow: 0 8px 20px rgba(70, 82, 135, 0.08);
+        }
+
+        .option input {
+            margin-top: 0.25rem;
+            accent-color: var(--primary);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.85rem 0.95rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            background: white;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 115px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(89, 107, 226, 0.12);
+        }
+
+        .error {
+            display: none;
+            margin: 0.6rem 0 0;
+            color: var(--danger);
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        .question.invalid {
+            border-color: rgba(180, 71, 71, 0.52);
+            background: #fffafa;
+        }
+
+        .question.invalid .error {
+            display: block;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.8rem;
+            margin-top: 1.6rem;
+        }
+
+        .button {
+            min-height: 3rem;
+            padding: 0.75rem 1.2rem;
+            border: 0;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .button-secondary {
+            color: var(--text);
+            background: #edf0f8;
+        }
+
+        .button-primary {
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            box-shadow: 0 12px 25px rgba(64, 81, 194, 0.24);
+        }
+
+        .button[disabled] {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .completion {
+            display: none;
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .completion.active {
+            display: block;
+        }
+
+        .completion-icon {
+            display: grid;
+            width: 4.5rem;
+            height: 4.5rem;
+            margin: 0 auto 1rem;
+            place-items: center;
+            border-radius: 50%;
+            color: white;
+            background: linear-gradient(145deg, var(--teal), var(--primary));
+            font-size: 2rem;
+        }
+
+        .completion h2 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .completion p {
+            max-width: 650px;
+            margin: 0.8rem auto 1.4rem;
+            color: var(--muted);
+        }
+
+        .footer {
+            padding-top: 1rem;
+            color: var(--muted);
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 680px) {
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .brand small {
+                display: none;
+            }
+
+            .question {
+                padding: 1rem;
+            }
+
+            .actions {
+                flex-direction: column-reverse;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <header class="topbar">
+            <div class="brand">
+                <span>
+                    <span data-ui="brand"></span>
+                    <small data-ui="mock"></small>
+                </span>
+            </div>
+
+            <div class="language-switch" aria-label="Language">
+                <button class="language-button active" type="button" data-language="fr">
+                    Français
+                </button>
+                <button class="language-button" type="button" data-language="en">
+                    English
+                </button>
+            </div>
+        </header>
+
+        <main class="card">
+            <section class="hero">
+                <p class="eyebrow" data-ui="eyebrow"></p>
+                <h1 data-ui="title"></h1>
+                <p class="hero-description" data-ui="description"></p>
+            </section>
+
+            <div class="notice" role="note" data-ui="notice"></div>
+
+            <div class="progress-wrap" id="progressWrap">
+                <div class="progress-meta">
+                    <span id="stepLabel"></span>
+                    <span id="progressPercent">0 %</span>
+                </div>
+                <div class="progress-track" aria-hidden="true">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+
+            <form id="survey" novalidate>
+                <div id="pages"></div>
+
+                <div class="actions">
+                    <button
+                        class="button button-secondary"
+                        type="button"
+                        id="previousButton"
+                    ></button>
+                    <button
+                        class="button button-primary"
+                        type="button"
+                        id="nextButton"
+                    ></button>
+                </div>
+            </form>
+
+            <section class="completion" id="completion" aria-live="polite">
+                <div class="completion-icon" aria-hidden="true">✓</div>
+                <h2 data-ui="completeTitle"></h2>
+                <p data-ui="completeText"></p>
+                <button
+                    class="button button-primary"
+                    type="button"
+                    id="restartButton"
+                    data-ui="restart"
+                ></button>
+            </section>
+        </main>
+
+        <footer class="footer" data-ui="footer"></footer>
+    </div>
+
+    <script>
+        const data = {"fields": [{"name": "patient", "type": "radio", "label": {"fr": "Êtes-vous :", "en": "Are you:"}, "choices": [{"value": "1", "fr": "Une personne ayant reçu un diagnostic d'épilepsie confirmé par un neurologue", "en": "A person who has received a diagnosis of epilepsy confirmed by a neurologist"}, {"value": "2", "fr": "Le proche aidant d'une personne ayant reçu un diagnostic d'épilepsie confirmé par un neurologue", "en": "The caregiver of a person who has received a diagnosis of epilepsy confirmed by a neurologist"}, {"value": "3", "fr": "Aucune de ces réponses", "en": "None of the above"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "", "section": "eligibility"}, {"name": "habite_quebec", "type": "radio", "label": {"fr": "Habitez-vous au Québec ?", "en": "Do you live in Quebec?"}, "choices": [{"value": "1", "fr": "Oui", "en": "Yes"}, {"value": "2", "fr": "Non", "en": "No"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "eligibility"}, {"name": "habite_quebec_cg", "type": "radio", "label": {"fr": "Habitez-vous au Québec ?", "en": "Do you live in Québec?"}, "choices": [{"value": "1", "fr": "Oui", "en": "Yes"}, {"value": "2", "fr": "Non", "en": "No"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '2'", "section": "eligibility"}, {"name": "postal_code", "type": "text", "label": {"fr": "Quel est votre code postal (p. ex. J0J 1C0) ?", "en": "What is your postal code (e.g., J0J 1C0)?"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "postalcode_canada", "required": false, "branching": "[habite_quebec] = '1' OR [habite_quebec_cg] = '1'", "section": "eligibility"}, {"name": "habite_ailleurs_cg", "type": "text", "label": {"fr": "Si non, veuillez préciser où vous habitez", "en": "If not, please specify where you live"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[habite_quebec_cg] = '2'", "section": "eligibility"}, {"name": "accepte", "type": "radio", "label": {"fr": "En cliquant sur le bouton \" J'accepte \" , j'atteste : o Avoir pris connaissance du formulaire d'information et de consentement. o Consentir volontairement et librement à participer à ce projet de recherche. o Autoriser l'utilisation de mes données codées à des fins d'usage secondaire.", "en": "By clicking the \" I accept, \" I confirm that: o I have read the information and consent form. o I voluntarily and freely agree to participate in this research project. o I consent to the use of my coded data for secondary research purposes."}, "choices": [{"value": "1", "fr": "J'accepte", "en": "I accept"}, {"value": "2", "fr": "Je refuse", "en": "I refuse"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "", "section": "eligibility"}, {"name": "age", "type": "radio", "label": {"fr": "À quel âge vos crises d'épilepsie ont-elles débuté ?", "en": "At what age did your seizures begin?"}, "choices": [{"value": "1", "fr": "Avant 5 ans", "en": "Under 5 years"}, {"value": "2", "fr": "5-12 ans", "en": "5-12 years old"}, {"value": "3", "fr": "13-18 ans", "en": "13-18 years old"}, {"value": "4", "fr": "19-30 ans", "en": "19-30 years old"}, {"value": "5", "fr": "31 ans et plus", "en": "31 years and older"}, {"value": "6", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "7", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "experience"}, {"name": "type_epilepsie", "type": "checkbox", "label": {"fr": "Quel type d'épilepsie avez-vous ? (cochez toutes les cases qui s'appliquent)", "en": "What type of epilepsy do you have? (check all that apply)"}, "choices": [{"value": "1", "fr": "Épilepsie généralisée", "en": "Generalized epilepsy"}, {"value": "2", "fr": "Épilepsie focale", "en": "Focal epilepsy"}, {"value": "3", "fr": "Épilepsie généralisée et focale combinée", "en": "Combined generalized and focal epilepsy"}, {"value": "4", "fr": "Épilepsie non-déterminée ou inconnue", "en": "Undetermined or unknown epilepsy"}, {"value": "5", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "6", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "experience"}, {"name": "type_crise", "type": "checkbox", "label": {"fr": "Quels types de crises avez-vous ? (cochez toutes les cases qui s'appliquent)", "en": "What types of seizures do you have? (check all that apply)"}, "choices": [{"value": "1", "fr": "Crises généralisées (absences, tonico-cloniques, atoniques ou myocloniques)", "en": "Generalized seizures (absence, tonic-clonic, atonic, or myoclonic)"}, {"value": "2", "fr": "Crises focales avec altération de l'état de conscience", "en": "Focal seizures with impaired awareness"}, {"value": "3", "fr": "Crises focales sans altération de l'état de conscience", "en": "Focal seizures without impaired awareness"}, {"value": "4", "fr": "Spasmes épileptiques (anciennement appelés spasmes infantiles)", "en": "Epileptic spasms (previously called infantile spasms)"}, {"value": "5", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "6", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "experience"}, {"name": "frequence_crise", "type": "radio", "label": {"fr": "Quelle a été la fréquence de vos crises au cours du dernier mois ?", "en": "How frequent were your seizures during the past month?"}, "choices": [{"value": "1", "fr": "Aucune", "en": "None"}, {"value": "2", "fr": "1-2 crises", "en": "1-2 seizures"}, {"value": "3", "fr": "3-5 crises", "en": "3-5 seizures"}, {"value": "4", "fr": "6-10 crises", "en": "6-10 seizures"}, {"value": "5", "fr": "11 crises ou plus", "en": "11 seizures or more"}, {"value": "6", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "7", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "experience"}, {"name": "cause_epilepsie", "type": "checkbox", "label": {"fr": "Selon vous, quelle est la cause de votre épilepsie ? (cochez toutes les cases qui s'appliquent)", "en": "What do you believe is the cause of your epilepsy? (check all that apply)"}, "choices": [{"value": "1", "fr": "Génétique / héréditaire", "en": "Genetic / hereditary"}, {"value": "2", "fr": "Lésion ou anomalie du cerveau (p. ex. tumeur, malformation, AVC)", "en": "Brain lesion or abnormality (e.g., tumor, malformation, stroke)"}, {"value": "3", "fr": "Traumatisme crânien", "en": "Head injury"}, {"value": "4", "fr": "Infection du cerveau (p. ex. méningite, encéphalite)", "en": "Brain infection (e.g., meningitis, encephalitis)"}, {"value": "5", "fr": "Consommation de substances", "en": "Substance use"}, {"value": "6", "fr": "Inconnue", "en": "Unknown"}, {"value": "7", "fr": "Autre", "en": "Other"}, {"value": "8", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "9", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "experience"}, {"name": "cause_autre", "type": "text", "label": {"fr": "Veuillez préciser toute autre cause de votre épilepsie", "en": "Please specify any other cause of your epilepsy"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[cause_epilepsie(7)] = '1'", "section": "experience"}, {"name": "traitement_nonchir", "type": "checkbox", "label": {"fr": "Quels traitements non-chirurgicaux avez-vous reçus pour l'épilepsie ? (cochez toutes les cases qui s'appliquent)", "en": "Which non-surgical treatments have you received for your epilepsy? (check all that apply)"}, "choices": [{"value": "1", "fr": "Médicaments anti-crises", "en": "Anti-seizure medications"}, {"value": "2", "fr": "Régime alimentaire", "en": "Diet"}, {"value": "3", "fr": "Autre", "en": "Other"}, {"value": "4", "fr": "Aucun", "en": "None"}, {"value": "5", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "experience"}, {"name": "med", "type": "radio", "label": {"fr": "Les médicaments anti-crises permettent-ils de contrôler vos crises d'épilepsie ?", "en": "Do anti-seizure medications help control your seizures?"}, "choices": [{"value": "1", "fr": "Oui, complètement", "en": "Yes, completely"}, {"value": "2", "fr": "Oui, partiellement", "en": "Yes, partially"}, {"value": "3", "fr": "Non", "en": "No"}, {"value": "4", "fr": "Ne sais pas", "en": "Do not know"}], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[traitement_nonchir(1)] = '1'", "section": "experience"}, {"name": "regimefonct", "type": "radio", "label": {"fr": "Le régime alimentaire permet-il de contrôler vos crises d'épilepsie ?", "en": "Does diet help control your seizures?"}, "choices": [{"value": "1", "fr": "Oui, complètement", "en": "Yes, completely"}, {"value": "2", "fr": "Oui, partiellement", "en": "Yes, partially"}, {"value": "3", "fr": "Non", "en": "No"}, {"value": "4", "fr": "Ne sais pas", "en": "Do not know"}], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[traitement_nonchir(2)] = '1'", "section": "experience"}, {"name": "traitement_autre", "type": "text", "label": {"fr": "Veuillez préciser tout autre traitement", "en": "Please specify any other treatment"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[traitement_nonchir(3)] = '1'", "section": "experience"}, {"name": "txautre", "type": "radio", "label": {"fr": "Cet autre traitement permet-il de contrôler vos crises d'épilepsie ?", "en": "Does this other treatment help control your seizures?"}, "choices": [{"value": "1", "fr": "Oui, complètement", "en": "Yes, completely"}, {"value": "2", "fr": "Oui, partiellement", "en": "Yes, partially"}, {"value": "3", "fr": "Non", "en": "No"}, {"value": "4", "fr": "Ne sais pas", "en": "Do not know"}], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[traitement_nonchir(3)] = '1'", "section": "experience"}, {"name": "interventionchir", "type": "radio", "label": {"fr": "Avez-vous eu une intervention chirurgicale pour votre épilepsie ?", "en": "Have you had surgery for your epilepsy?"}, "choices": [{"value": "1", "fr": "Oui", "en": "Yes"}, {"value": "2", "fr": "Non", "en": "No"}, {"value": "3", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "experience"}, {"name": "interventionchir_type", "type": "checkbox", "label": {"fr": "Si oui, lesquelles de ces interventions chirurgicales avez-vous eues ? (cochez toutes les cases qui s'appliquent)", "en": "Which of the following surgical procedures have you had? (check all that apply)"}, "choices": [{"value": "1", "fr": "Résection ouverte (p. ex. lobectomie)", "en": "Open resection (e.g., lobectomy)"}, {"value": "2", "fr": "Hémispherectomie", "en": "Hemispherectomy"}, {"value": "3", "fr": "Callosotomie", "en": "Callosotomy"}, {"value": "4", "fr": "Ablation laser (LITT)", "en": "Laser ablation (LITT)"}, {"value": "5", "fr": "Ablation par radiochirurgie (p. ex. Gamma Knife, CyberKnife)", "en": "Radiosurgery (e.g., Gamma Knife, CyberKnife)"}, {"value": "6", "fr": "Stimulation cérébrale profonde (SCP)", "en": "Deep brain stimulation (DBS)"}, {"value": "7", "fr": "Stimulateur du nerf vague (SNV)", "en": "Vagus nerve stimulation (VNS)"}, {"value": "8", "fr": "Thermocoagulation par radiofréquence (RF-TC)", "en": "Radiofrequency thermocoagulation (RF-TC)"}, {"value": "9", "fr": "Neurostimulation asservie (RNS)", "en": "Responsive neurostimulation (RNS)"}, {"value": "10", "fr": "Ultrasons focalisés guidés par IRM", "en": "MRI-guided focused ultrasound"}, {"value": "11", "fr": "Autre", "en": "Other"}, {"value": "12", "fr": "Aucun", "en": "None"}], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[interventionchir] = '1'", "section": "experience"}, {"name": "interventionchir_autre", "type": "text", "label": {"fr": "Veuillez préciser toute autre intervention chirurgicale", "en": "Please specify any other surgical procedure"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[interventionchir_type(11)] = '1'", "section": "experience"}, {"name": "interventionchir_crise", "type": "radio", "label": {"fr": "Depuis votre chirurgie, comment vos crises ont-elles changé ?", "en": "Since your surgery, how have your seizures changed?"}, "choices": [{"value": "1", "fr": "Disparition complète", "en": "Complete disappearance"}, {"value": "2", "fr": "Réduction ≥ 50 %", "en": "Reduction ≥ 50 %"}, {"value": "3", "fr": "Réduction < 50 %", "en": "Reduction < 50 %"}, {"value": "4", "fr": "Aucune amélioration", "en": "No improvement"}, {"value": "5", "fr": "Augmentation des crises", "en": "Increase in seizures"}], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[interventionchir] = '1'", "section": "experience"}, {"name": "interventionchir_es", "type": "radio", "label": {"fr": "Avez-vous ressenti des effets secondaires ou des conséquences négatives liés à votre chirurgie ?", "en": "Have you experienced any side effects or negative consequences related to your surgery? (check all that apply)"}, "choices": [{"value": "1", "fr": "Oui", "en": "Yes"}, {"value": "2", "fr": "Non", "en": "No"}, {"value": "3", "fr": "Ne sais pas", "en": "Do not know"}], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[interventionchir] = '1'", "section": "experience"}, {"name": "interventionchir_es_preciser", "type": "text", "label": {"fr": "Veuillez préciser les effets secondaires ou les conséquences négatives", "en": "Please specify the side effects or negative consequences"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[interventionchir_es] = '1'", "section": "experience"}, {"name": "interventionchir_qlt", "type": "radio", "label": {"fr": "Globalement, comment évalueriez-vous votre qualité de vie après votre chirurgie ?", "en": "Overall, how would you rate your quality of life after your surgery?"}, "choices": [{"value": "1", "fr": "Nettement améliorée", "en": "Significantly improved"}, {"value": "2", "fr": "Légèrement améliorée", "en": "Slightly improved"}, {"value": "3", "fr": "Inchangée", "en": "Unchanged"}, {"value": "4", "fr": "Détériorée", "en": "Worsened"}], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[interventionchir] = '1'", "section": "experience"}, {"name": "interventionchir_refaire", "type": "radio", "label": {"fr": "Si c'était à refaire, choisiriez-vous de subir à nouveau cette chirurgie ?", "en": "If you had to do it over again, would you choose to undergo this surgery?"}, "choices": [{"value": "1", "fr": "Oui", "en": "Yes"}, {"value": "2", "fr": "Non", "en": "No"}, {"value": "3", "fr": "Ne sais pas", "en": "Do not know"}], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[interventionchir] = '1'", "section": "experience"}, {"name": "interventionchir_refaire_why", "type": "text", "label": {"fr": "Pourquoi ?", "en": "Why?"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[interventionchir_refaire] = '1' OR  [interventionchir_refaire] = '2'", "section": "experience"}, {"name": "txalternatif", "type": "checkbox", "label": {"fr": "Quels traitements alternatifs avez-vous essayés pour votre épilepsie ? (cochez toutes les cases qui s'appliquent)", "en": "What alternative treatments have you tried for your epilepsy? (check all that apply)"}, "choices": [{"value": "1", "fr": "Prière ou pratiques spirituelles", "en": "Prayer or spiritual practices"}, {"value": "2", "fr": "Relaxation / yoga / méditation", "en": "Relaxation / yoga / meditation"}, {"value": "3", "fr": "Vitamines ou suppléments", "en": "Vitamins or supplements"}, {"value": "4", "fr": "Cannabis ou plantes médicinales (autre que l'Epidiolex)", "en": "Cannabis or herbal remedies (other than Epidiolex®)"}, {"value": "5", "fr": "Acupuncture", "en": "Acupuncture"}, {"value": "6", "fr": "Thérapie psychologique ou comportementale", "en": "Psychological or behavioral therapy"}, {"value": "7", "fr": "Autre", "en": "Other"}, {"value": "8", "fr": "Aucun", "en": "None"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "experience"}, {"name": "txalternatif_autre", "type": "text", "label": {"fr": "Veuillez préciser tout autre traitement alternatif", "en": "Please specify any other alternative treatment"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[txalternatif(7)] = '1'", "section": "experience"}, {"name": "lien_cg", "type": "radio", "label": {"fr": "Quel est votre lien avec la personne atteinte d'épilepsie ?", "en": "What is your relationship to the person living with epilepsy?"}, "choices": [{"value": "1", "fr": "Parent", "en": "Parent"}, {"value": "2", "fr": "Conjoint(e)", "en": "Spouse/Partner"}, {"value": "3", "fr": "Enfant", "en": "Child"}, {"value": "4", "fr": "Ami(e) proche", "en": "Close friend"}, {"value": "5", "fr": "Autre", "en": "Other"}, {"value": "6", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '2'", "section": "experience"}, {"name": "lien_cg_autre", "type": "text", "label": {"fr": "Veuillez préciser tout autre lien", "en": "Please specify any other relationship"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[lien_cg] = '5'", "section": "experience"}, {"name": "solliciter_cg", "type": "radio", "label": {"fr": "Combien de fois par semaine aidez-vous cette personne pour son épilepsie ? (p. ex. crises, récupération, médicaments, rendez-vous)", "en": "How many times per week do you help this person with their epilepsy? (e.g., seizures, recovery, medications, appointments)"}, "choices": [{"value": "1", "fr": "Jamais", "en": "Never"}, {"value": "2", "fr": "Moins d'une fois par semaine", "en": "Less than once per week"}, {"value": "3", "fr": "1-2 fois par semaine", "en": "1-2 times per week"}, {"value": "4", "fr": "3-4 fois par semaine", "en": "3-4 times per week"}, {"value": "5", "fr": "5-6 fois par semaine", "en": "5-6 times per week"}, {"value": "6", "fr": "Tous les jours", "en": "Every day"}, {"value": "7", "fr": "Plusieurs fois par jour", "en": "Several times per day"}, {"value": "8", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '2'", "section": "experience"}, {"name": "impact_emo_cg", "type": "radio", "label": {"fr": "Ressentez-vous un impact émotionnel ou psychologique lié à votre rôle d'aidant ?", "en": "Do you feel an emotional or psychological impact related to your role as a caregiver?"}, "choices": [{"value": "1", "fr": "Oui", "en": "Yes"}, {"value": "2", "fr": "Non", "en": "No"}, {"value": "3", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '2'", "section": "experience"}, {"name": "impact_emo_preciser", "type": "text", "label": {"fr": "Veuillez préciser", "en": "Please specify"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[impact_emo_cg] = '1'", "section": "experience"}, {"name": "entendu", "type": "checkbox", "label": {"fr": "Parmi les interventions chirurgicales suivantes, lesquelles vous sont familières ? (cochez toutes les cases qui s'appliquent)", "en": "Among the following surgical procedures, which ones are you familiar with?"}, "choices": [{"value": "1", "fr": "Résection ouverte (p. ex. lobectomie)", "en": "Open resection (e.g., lobectomy)"}, {"value": "2", "fr": "Ablation laser (LITT)", "en": "Laser ablation (LITT)"}, {"value": "3", "fr": "Ablation par radiochirurgie (p. ex. Gamma Knife, CyberKnife)", "en": "Radiosurgery (e.g., Gamma Knife, CyberKnife)"}, {"value": "4", "fr": "Stimulation cérébrale profonde (SCP)", "en": "Deep brain stimulation (DBS)"}, {"value": "5", "fr": "Stimulateur du nerf vague (SNV)", "en": "Vagus nerve stimulation (VNS)"}, {"value": "6", "fr": "Thermocoagulation par radiofréquence (RF-TC)", "en": "Radiofrequency thermocoagulation (RF-TC)"}, {"value": "7", "fr": "Neurostimulation asservie (RNS)", "en": "Responsive neurostimulation (RNS)"}, {"value": "8", "fr": "Ultrasons focalisés guidés par IRM", "en": "MRI-guided focused ultrasound"}, {"value": "9", "fr": "Autre", "en": "Other"}, {"value": "10", "fr": "Aucune", "en": "None"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "", "section": "surgery"}, {"name": "entendu_autre", "type": "text", "label": {"fr": "Veuillez préciser toute autre intervention chirurgicale", "en": "Please specify any other surgical procedure"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[entendu(9)] = '1'", "section": "surgery"}, {"name": "peur", "type": "checkbox", "label": {"fr": "Parmi ces chirurgies, lesquelles vous inquiètent ou vous font peur ? (cochez toutes les cases qui s'appliquent)", "en": "Which of these surgeries worry you or scare you?"}, "choices": [{"value": "1", "fr": "Résection ouverte (p. ex. lobectomie)", "en": "Open resection (e.g., lobectomy)"}, {"value": "2", "fr": "Ablation laser (LITT)", "en": "Laser ablation (LITT)"}, {"value": "3", "fr": "Ablation par radiochirurgie (p. ex. Gamma Knife, CyberKnife)", "en": "Radiosurgery (e.g., Gamma Knife, CyberKnife)"}, {"value": "4", "fr": "Stimulation cérébrale profonde (SCP)", "en": "Deep brain stimulation (DBS)"}, {"value": "5", "fr": "Stimulateur du nerf vague (SNV)", "en": "Vagus nerve stimulation (VNS)"}, {"value": "6", "fr": "Thermocoagulation par radiofréquence (RF-TC)", "en": "Radiofrequency thermocoagulation (RF-TC)"}, {"value": "7", "fr": "Neurostimulation asservie (RNS)", "en": "Responsive neurostimulation (RNS)"}, {"value": "8", "fr": "Ultrasons focalisés guidés par IRM", "en": "MRI-guided focused ultrasound"}, {"value": "9", "fr": "Autre", "en": "Other"}, {"value": "10", "fr": "Aucune", "en": "None"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "", "section": "surgery"}, {"name": "peur_autre", "type": "text", "label": {"fr": "Veuillez préciser toute autre intervention chirurgicale", "en": "Please specify any other surgical procedure"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[peur(9)] = '1'", "section": "surgery"}, {"name": "negative", "type": "checkbox", "label": {"fr": "Selon vous, quelles sont les conséquences négatives les plus fréquentes de la chirurgie ? (cochez toutes les cases qui s'appliquent)", "en": "In your opinion, what are the most common negative consequences of surgery? (check all that apply)"}, "choices": [{"value": "1", "fr": "Décès", "en": "Death"}, {"value": "2", "fr": "Détérioration de l'épilepsie", "en": "Worsening of epilepsy"}, {"value": "3", "fr": "Perte de mémoire", "en": "Memory loss"}, {"value": "4", "fr": "Atteinte du langage", "en": "Language impairment"}, {"value": "5", "fr": "Déclin cognitif", "en": "Cognitive impairment"}, {"value": "6", "fr": "Difficultés motrices (faiblesse, paralysie)", "en": "Motor difficulties (weakness, paralysis)"}, {"value": "7", "fr": "Maladies cérébrovasculaires (AVC, saignement)", "en": "Cerebrovascular diseases (stroke, bleeding)"}, {"value": "8", "fr": "Altération de la personnalité", "en": "Personality changes"}, {"value": "9", "fr": "Troubles psychologiques (dépression, anxiété)", "en": "Psychological disorders (depression, anxiety)"}, {"value": "10", "fr": "Infection", "en": "Infection"}, {"value": "11", "fr": "Atteinte de la vision périphérique (quadrantanopsie)", "en": "Peripheral vision loss (quadrantanopia)"}, {"value": "12", "fr": "Aucune", "en": "None"}, {"value": "13", "fr": "Autre", "en": "Other"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "", "section": "surgery"}, {"name": "negative_autre", "type": "text", "label": {"fr": "Veuillez préciser toute autre conséquence négative", "en": "Please specify any other negative consequence"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[negative(13)] = '1'", "section": "surgery"}, {"name": "benefique", "type": "checkbox", "label": {"fr": "Selon vous, quels sont les effets bénéfiques les plus fréquents de la chirurgie ? (cochez toutes les cases qui s'appliquent)", "en": "In your opinion, what are the most common benefits of surgery? (check all that apply)"}, "choices": [{"value": "1", "fr": "Réduction de la prise de médicaments", "en": "Reduction in medication use"}, {"value": "2", "fr": "Diminution de la fréquence ou de l'intensité des crises", "en": "Decrease in frequency or intensity of seizures"}, {"value": "3", "fr": "Disparition complète des crises", "en": "Complete disappearance of seizures"}, {"value": "4", "fr": "Amélioration de la qualité de vie (p. ex. travailler, conduire, être plus autonome)", "en": "Improved quality of life (e.g., working, driving, being more independent)"}, {"value": "5", "fr": "Amélioration du développement général (p. ex. apprentissage, mémoire, concentration)", "en": "Improvement in overall development (e.g., learning, memory, concentration)"}, {"value": "6", "fr": "Aucun", "en": "None"}, {"value": "7", "fr": "Autre", "en": "Other"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "", "section": "surgery"}, {"name": "benefique_autre", "type": "text", "label": {"fr": "Veuillez préciser tout autre effet bénéfique", "en": "Please specify any other benefit"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[benefique(7)] = '1'", "section": "surgery"}, {"name": "opinion_1_px", "type": "radio", "label": {"fr": "Si votre médecin vous disait que la chirurgie arrêterait complètement vos crises sans causer de dommages au cerveau, accepteriez-vous ?", "en": "If your doctor said surgery would stop your seizures completely and cause no brain damage, would you agree to it?"}, "choices": [{"value": "1", "fr": "Oui", "en": "Yes"}, {"value": "2", "fr": "Non", "en": "No"}, {"value": "3", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "4", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "surgery"}, {"name": "opinion_1_cg", "type": "radio", "label": {"fr": "Si le médecin de votre proche vous disait que la chirurgie arrêterait complètement ses crises sans causer de dommages au cerveau, accepteriez-vous ?", "en": "If your loved one's doctor said surgery would stop their seizures completely and cause no brain damage, would you agree to it?"}, "choices": [{"value": "1", "fr": "Oui", "en": "Yes"}, {"value": "2", "fr": "Non", "en": "No"}, {"value": "3", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "4", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '2'", "section": "surgery"}, {"name": "opinion_2_px", "type": "checkbox", "label": {"fr": "La chirurgie de l'épilepsie comporte certains risques. Quel niveau d'amélioration vous faudrait pour envisager la chirurgie ? (cochez toutes les cases qui s'appliquent)", "en": "Epilepsy surgery has some risks. What level of improvement would you need to consider surgery? (check all that apply)"}, "choices": [{"value": "1", "fr": "Absence complète de crises", "en": "Complete seizure freedom"}, {"value": "2", "fr": "Réduction des crises de 90 % ou plus", "en": "90% or greater reduction in seizures"}, {"value": "3", "fr": "Réduction des crises de 75 à 89 %", "en": "75-89% reduction in seizures"}, {"value": "4", "fr": "Réduction des crises de 50 à 74 %", "en": "50-74% reduction in seizures"}, {"value": "5", "fr": "Réduction des crises de 0 à 50 %", "en": "0-50% reduction in seizures"}, {"value": "6", "fr": "Je refuserais la chirurgie, peu importe les chances de succès", "en": "I would refuse surgery regardless of the chances of success"}, {"value": "7", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "8", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "surgery"}, {"name": "opinion_2_cg", "type": "checkbox", "label": {"fr": "La chirurgie de l'épilepsie comporte certains risques. Quel niveau d'amélioration vous faudrait pour envisager la chirurgie pour votre proche ? (cochez toutes les cases qui s'appliquent)", "en": "Epilepsy surgery has some risks. What level of improvement would you need to consider surgery for your loved one? (check all that apply)"}, "choices": [{"value": "1", "fr": "Absence complète de crises", "en": "Complete seizure freedom"}, {"value": "2", "fr": "Réduction des crises de 90 % ou plus", "en": "90% or greater reduction in seizures"}, {"value": "3", "fr": "Réduction des crises de 75 à 89 %", "en": "75-89% reduction in seizures"}, {"value": "4", "fr": "Réduction des crises de 50 à 74 %", "en": "50-74% reduction in seizures"}, {"value": "5", "fr": "Réduction des crises de 0 à 50 %", "en": "0-50% reduction in seizures"}, {"value": "6", "fr": "Je refuserais la chirurgie, peu importe les chances de succès", "en": "I would refuse surgery regardless of the chances of success"}, {"value": "7", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "8", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '2'", "section": "surgery"}, {"name": "stigmaqc", "type": "radio", "label": {"fr": "Pensez-vous que les personnes atteintes d'épilepsie sont stigmatisées au Québec ?", "en": "Do you think that people living with epilepsy are stigmatized in Quebec?"}, "choices": [{"value": "1", "fr": "Oui, beaucoup", "en": "Yes, a lot"}, {"value": "2", "fr": "Oui, un peu", "en": "Yes, a little"}, {"value": "3", "fr": "Non, pas vraiment", "en": "No, not really"}, {"value": "4", "fr": "Non, pas du tout", "en": "No, not at all"}, {"value": "5", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "6", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "", "section": "stigma"}, {"name": "stigmaqc_commentaire", "type": "text", "label": {"fr": "Commentaires", "en": "Comments"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "", "section": "stigma"}, {"name": "cacher", "type": "radio", "label": {"fr": "Êtes-vous ouvert(e) à parler de votre diagnostic d'épilepsie ?", "en": "Are you open to talking about your epilepsy diagnosis?"}, "choices": [{"value": "1", "fr": "Oui, j'en parle ouvertement", "en": "Yes, I talk about it openly"}, {"value": "2", "fr": "Oui, mais seulement à certaines personnes", "en": "Yes, but only with certain people"}, {"value": "3", "fr": "Non, j'évite d'en parler", "en": "No, I prefer not to talk about it"}, {"value": "4", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "stigma"}, {"name": "cacher_cg", "type": "radio", "label": {"fr": "Êtes-vous ouvert(e) à parler du diagnostic d'épilepsie de votre proche ?", "en": "Are you open to talking about your loved one's epilepsy diagnosis?"}, "choices": [{"value": "1", "fr": "Oui, j'en parle ouvertement", "en": "Yes, I talk about it openly"}, {"value": "2", "fr": "Oui, mais seulement à certaines personnes", "en": "Yes, but only with certain people"}, {"value": "3", "fr": "Non, j'évite d'en parler", "en": "No, I prefer not to talk about it"}, {"value": "4", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '2'", "section": "stigma"}, {"name": "cacher_commentaire", "type": "text", "label": {"fr": "Commentaires", "en": "Comments"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "", "section": "stigma"}, {"name": "inquiet", "type": "radio", "label": {"fr": "Avez-vous déjà senti que des personnes étaient mal à l'aise ou vous traitaient différemment en raison de votre épilepsie ?", "en": "Have you ever felt that people were uncomfortable around you or treated you differently because of your epilepsy?"}, "choices": [{"value": "1", "fr": "Jamais", "en": "Never"}, {"value": "2", "fr": "Rarement", "en": "Rarely"}, {"value": "3", "fr": "Parfois", "en": "Sometimes"}, {"value": "4", "fr": "Souvent", "en": "Often"}, {"value": "5", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "6", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '1'", "section": "stigma"}, {"name": "inquiet_cg", "type": "radio", "label": {"fr": "Avez-vous déjà senti que des personnes étaient mal à l'aise ou vous traitaient différemment en raison de l'épilepsie de votre proche ?", "en": "Have you ever felt that people were uncomfortable around you or treated you differently because of your loved one's epilepsy?"}, "choices": [{"value": "1", "fr": "Jamais", "en": "Never"}, {"value": "2", "fr": "Rarement", "en": "Rarely"}, {"value": "3", "fr": "Parfois", "en": "Sometimes"}, {"value": "4", "fr": "Souvent", "en": "Often"}, {"value": "5", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "6", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[patient] = '2'", "section": "stigma"}, {"name": "inquiet_commentaire", "type": "text", "label": {"fr": "Commentaires", "en": "Comments"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "", "section": "stigma"}, {"name": "age_yrs", "type": "text", "label": {"fr": "Quel est votre âge (en années) ?", "en": "What is your age (in years)?"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "number", "required": false, "branching": "", "section": "demographics"}, {"name": "autoch", "type": "radio", "label": {"fr": "Êtes-vous une personne autochtone ?", "en": "Are you an Indigenous person?"}, "choices": [{"value": "1", "fr": "Oui", "en": "Yes"}, {"value": "2", "fr": "Non", "en": "No"}, {"value": "3", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "4", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "", "section": "demographics"}, {"name": "race", "type": "checkbox", "label": {"fr": "À quels groupes racisés vous identifiez-vous ? (cochez toutes les cases qui s'appliquent)", "en": "Which racialized groups do you identify with? (check all that apply)"}, "choices": [{"value": "1", "fr": "Asiatique de l'Est", "en": "East Asian"}, {"value": "2", "fr": "Asiatique du Sud", "en": "South Asian"}, {"value": "3", "fr": "Asiatique du Sud-Est", "en": "Southeast Asian"}, {"value": "4", "fr": "Blanc", "en": "White"}, {"value": "5", "fr": "Latino-Américain", "en": "Latino / Latin American"}, {"value": "6", "fr": "Noir", "en": "Black"}, {"value": "7", "fr": "Moyen-Oriental / Afrique du Nord", "en": "Middle Eastern / North African"}, {"value": "8", "fr": "Autre", "en": "Other"}, {"value": "9", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "10", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "[autoch] = '2' OR [autoch] = '3' OR [autoch] = '4'", "section": "demographics"}, {"name": "race_autre", "type": "text", "label": {"fr": "Veuillez préciser tout autre groupe racisé", "en": "Please specify any other racialized group"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[race(8)] = '1'", "section": "demographics"}, {"name": "nee_canada", "type": "radio", "label": {"fr": "Êtes-vous né(e) au Canada ?", "en": "Were you born in Canada?"}, "choices": [{"value": "1", "fr": "Oui", "en": "Yes"}, {"value": "2", "fr": "Non", "en": "No"}, {"value": "3", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "4", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "", "section": "demographics"}, {"name": "genre", "type": "checkbox", "label": {"fr": "Quelle est votre identité de genre ? (cochez toutes les cases qui s'appliquent)", "en": "What is your gender identity? (check all that apply)"}, "choices": [{"value": "1", "fr": "Genre fluide (genderfluid) ou genderqueer", "en": "Genderfluid or genderqueer"}, {"value": "2", "fr": "Homme", "en": "Man"}, {"value": "3", "fr": "Homme trans", "en": "Trans man"}, {"value": "4", "fr": "Non-binaire", "en": "Non-binary"}, {"value": "5", "fr": "Femme", "en": "Woman"}, {"value": "6", "fr": "Femme trans", "en": "Trans woman"}, {"value": "7", "fr": "En questionnement", "en": "Questioning"}, {"value": "8", "fr": "Autre", "en": "Other"}, {"value": "9", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "", "section": "demographics"}, {"name": "genre_autre", "type": "text", "label": {"fr": "Veuillez préciser toute autre identité de genre", "en": "Please specify any other gender identity"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[genre(8)] = '1'", "section": "demographics"}, {"name": "education", "type": "radio", "label": {"fr": "Quel est votre niveau d'éducation ?", "en": "What is your level of education?"}, "choices": [{"value": "1", "fr": "École primaire", "en": "Elementary school"}, {"value": "2", "fr": "Secondaire (sans diplôme)", "en": "High school (no diploma)"}, {"value": "3", "fr": "Diplôme d'études secondaires (DES) ou équivalent", "en": "High school diploma or equivalent"}, {"value": "4", "fr": "Formation professionnelle ou technique (DEP, certificat)", "en": "Apprenticeship or trade certificate/diploma"}, {"value": "5", "fr": "Collégial / CÉGEP", "en": "College / CEGEP"}, {"value": "6", "fr": "Universitaire - 1er cycle (baccalauréat)", "en": "University - undergraduate (bachelor's degree)"}, {"value": "7", "fr": "Universitaire - cycles supérieurs (maîtrise, doctorat, MD)", "en": "University - graduate (master's, doctorate, MD)"}, {"value": "8", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "9", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "", "section": "demographics"}, {"name": "religion", "type": "checkbox", "label": {"fr": "Quelle est votre religion ou affiliation spirituelle ? (cochez toutes les cases qui s'appliquent)", "en": "What is your religion or spiritual affiliation? (check all that apply)"}, "choices": [{"value": "1", "fr": "Bouddhisme", "en": "Buddhism"}, {"value": "2", "fr": "Christianisme", "en": "Christianity"}, {"value": "3", "fr": "Hindouisme", "en": "Hinduism"}, {"value": "4", "fr": "Judaïsme", "en": "Judaism"}, {"value": "5", "fr": "Islam", "en": "Islam"}, {"value": "6", "fr": "Sikhisme", "en": "Sikhism"}, {"value": "7", "fr": "Aucune", "en": "None"}, {"value": "8", "fr": "Autre", "en": "Other"}, {"value": "9", "fr": "Ne sais pas", "en": "Do not know"}, {"value": "10", "fr": "Préfère ne pas répondre", "en": "Prefer not to answer"}], "note": {"fr": "", "en": ""}, "validation": "", "required": true, "branching": "", "section": "demographics"}, {"name": "religion_autre", "type": "text", "label": {"fr": "Veuillez préciser toute autre religion/affiliation spirituelle", "en": "Please specify any other religion/spiritual affiliation"}, "choices": [], "note": {"fr": "", "en": ""}, "validation": "", "required": false, "branching": "[religion(8)] = '1'", "section": "demographics"}], "sections": [{"id": "eligibility", "fr": "Admissibilité et profil", "en": "Eligibility and profile", "description_fr": "Profil du répondant et questions d’admissibilité.", "description_en": "Respondent profile and eligibility questions."}, {"id": "experience", "fr": "Expérience de l’épilepsie", "en": "Experience with epilepsy", "description_fr": "Expérience personnelle ou expérience comme proche aidant.", "description_en": "Personal experience or experience as a caregiver."}, {"id": "surgery", "fr": "Connaissances et perceptions de la chirurgie", "en": "Knowledge and perceptions of surgery", "description_fr": "Connaissances, préoccupations et perceptions liées à la chirurgie.", "description_en": "Knowledge, concerns, and perceptions related to surgery."}, {"id": "stigma", "fr": "Stigmatisation et communication", "en": "Stigma and communication", "description_fr": "Expériences de stigmatisation et ouverture à en parler.", "description_en": "Experiences of stigma and willingness to discuss epilepsy."}, {"id": "demographics", "fr": "Renseignements sociodémographiques", "en": "Sociodemographic information", "description_fr": "Questions sociodémographiques de fin de questionnaire.", "description_en": "Final sociodemographic questions."}]};
+
+        const ui = {
+            fr: {
+                eyebrow: "Questionnaire REDCap reconstitué",
+                title: "Croyances sur la chirurgie de l’épilepsie",
+                description:
+                    "Version bilingue générée à partir du dictionnaire de données et des traductions officielles REDCap.",
+                notice:
+                    "Démonstration uniquement : aucune réponse n’est enregistrée, transmise ou recueillie.",
+                previous: "Précédent",
+                next: "Suivant",
+                finish: "Terminer la démonstration",
+                step: (current, total) => `Étape ${current} sur ${total}`,
+                required: "Veuillez répondre à cette question avant de continuer.",
+                completeTitle: "Démonstration terminée",
+                completeText:
+                    "Aucune réponse n’a été envoyée ou enregistrée. Les données saisies disparaissent lorsque la page est actualisée ou fermée.",
+                restart: "Recommencer",
+                footer: "Maquette autonome bilingue générée depuis REDCap."
+            },
+            en: {
+                eyebrow: "Reconstructed REDCap questionnaire",
+                title: "Beliefs about epilepsy surgery",
+                description:
+                    "Bilingual version generated from the REDCap data dictionary and official English translations.",
+                notice:
+                    "Demonstration only: no responses are saved, transmitted, or collected.",
+                previous: "Previous",
+                next: "Next",
+                finish: "Finish demonstration",
+                step: (current, total) => `Step ${current} of ${total}`,
+                required: "Please answer this question before continuing.",
+                completeTitle: "Demonstration complete",
+                completeText:
+                    "No responses were submitted or saved. Entered information disappears when the page is refreshed or closed.",
+                restart: "Start again",
+                footer: "Standalone bilingual mock-up generated from REDCap."
+            }
+        };
+
+        const form = document.getElementById("survey");
+        const pagesContainer = document.getElementById("pages");
+        const previousButton = document.getElementById("previousButton");
+        const nextButton = document.getElementById("nextButton");
+        const restartButton = document.getElementById("restartButton");
+        const completion = document.getElementById("completion");
+        const progressWrap = document.getElementById("progressWrap");
+        const progressBar = document.getElementById("progressBar");
+        const progressPercent = document.getElementById("progressPercent");
+        const stepLabel = document.getElementById("stepLabel");
+
+        let language = "en";
+        let currentPage = 0;
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        function localized(value) {
+            return value?.[language] || value?.fr || value?.en || "";
+        }
+
+        function renderField(field) {
+            const required = field.required
+                ? '<span class="required" aria-label="required">*</span>'
+                : "";
+
+            let control = "";
+
+            if (field.type === "radio" || field.type === "checkbox") {
+                control = `
+                    <div class="options">
+                        ${field.choices.map(choice => `
+                            <label class="option">
+                                <input
+                                    type="${field.type}"
+                                    name="${escapeHtml(field.name)}"
+                                    value="${escapeHtml(choice.value)}"
+                                >
+                                <span>${escapeHtml(localized(choice))}</span>
+                            </label>
+                        `).join("")}
+                    </div>
+                `;
+            } else {
+                const longText = /comment|préciser|pourquoi|impact|autre|explain|describe|specify/i
+                    .test(localized(field.label));
+                const inputType = field.validation.includes("integer")
+                    ? "number"
+                    : "text";
+
+                control = longText
+                    ? `<textarea name="${escapeHtml(field.name)}" autocomplete="off"></textarea>`
+                    : `<input type="${inputType}" name="${escapeHtml(field.name)}" autocomplete="off">`;
+            }
+
+            return `
+                <section
+                    class="question"
+                    data-field="${escapeHtml(field.name)}"
+                    data-branching="${escapeHtml(field.branching)}"
+                    data-required="${field.required ? "true" : "false"}"
+                >
+                    <label class="question-title">
+                        ${escapeHtml(localized(field.label))} ${required}
+                    </label>
+                    ${control}
+                    <p class="error">${escapeHtml(ui[language].required)}</p>
+                </section>
+            `;
+        }
+
+        function renderPages() {
+            pagesContainer.innerHTML = "";
+
+            data.sections.forEach((section, index) => {
+                const sectionFields = data.fields.filter(
+                    field => field.section === section.id
+                );
+
+                if (!sectionFields.length) {
+                    return;
+                }
+
+                const page = document.createElement("section");
+                page.className = `page${index === currentPage ? " active" : ""}`;
+                page.dataset.section = section.id;
+                page.innerHTML = `
+                    <header class="page-header">
+                        <h2>${escapeHtml(localized(section))}</h2>
+                        <p>${escapeHtml(section[`description_${language}`])}</p>
+                    </header>
+                    ${sectionFields.map(renderField).join("")}
+                `;
+
+                pagesContainer.appendChild(page);
+            });
+
+            updateBranching();
+        }
+
+        function getValue(fieldName) {
+            const controls = [
+                ...form.querySelectorAll(
+                    `[name="${CSS.escape(fieldName)}"]`
+                )
+            ];
+
+            if (!controls.length) {
+                return null;
+            }
+
+            if (controls[0].type === "checkbox") {
+                return controls
+                    .filter(control => control.checked)
+                    .map(control => control.value);
+            }
+
+            if (controls[0].type === "radio") {
+                const selected = controls.find(control => control.checked);
+                return selected ? selected.value : null;
+            }
+
+            return controls[0].value.trim();
+        }
+
+        function evaluateCondition(condition) {
+            let expression = condition;
+
+            expression = expression.replace(
+                /\[([A-Za-z0-9_]+)\(([^)]+)\)\]\s*=\s*'([^']+)'/g,
+                (_, fieldName, choice, expected) => {
+                    const value = getValue(fieldName);
+                    const matches =
+                        Array.isArray(value) &&
+                        value.includes(choice) === (expected === "1");
+                    return String(matches);
+                }
+            );
+
+            expression = expression.replace(
+                /\[([A-Za-z0-9_]+)\]\s*(=|<>|!=)\s*'([^']*)'/g,
+                (_, fieldName, operator, expected) => {
+                    const value = getValue(fieldName);
+                    const actual = value === null ? "" : String(value);
+                    const matches =
+                        operator === "="
+                            ? actual === expected
+                            : actual !== expected;
+                    return String(matches);
+                }
+            );
+
+            expression = expression
+                .replace(/\bAND\b/gi, "&&")
+                .replace(/\bOR\b/gi, "||");
+
+            if (!/^[\s()!&|truefals]+$/.test(expression)) {
+                return true;
+            }
+
+            try {
+                return Function(
+                    `"use strict"; return (${expression});`
+                )();
+            } catch {
+                return true;
+            }
+        }
+
+        function updateBranching() {
+            document.querySelectorAll(".question").forEach(question => {
+                const logic = question.dataset.branching;
+                const visible = !logic || evaluateCondition(logic);
+
+                question.classList.toggle("hidden", !visible);
+                question.classList.remove("invalid");
+
+                if (!visible) {
+                    question
+                        .querySelectorAll("input, textarea, select")
+                        .forEach(control => {
+                            if (
+                                control.type === "radio" ||
+                                control.type === "checkbox"
+                            ) {
+                                control.checked = false;
+                            } else {
+                                control.value = "";
+                            }
+                        });
+                }
+            });
+        }
+
+        function validateCurrentPage() {
+            const pages = [...document.querySelectorAll(".page")];
+            const current = pages[currentPage];
+            let valid = true;
+
+            current
+                .querySelectorAll(".question:not(.hidden)")
+                .forEach(question => {
+                    question.classList.remove("invalid");
+
+                    if (question.dataset.required !== "true") {
+                        return;
+                    }
+
+                    const controls = [
+                        ...question.querySelectorAll(
+                            "input, textarea, select"
+                        )
+                    ];
+
+                    const answered = controls.some(control => {
+                        if (
+                            control.type === "radio" ||
+                            control.type === "checkbox"
+                        ) {
+                            return control.checked;
+                        }
+                        return control.value.trim() !== "";
+                    });
+
+                    if (!answered) {
+                        valid = false;
+                        question.classList.add("invalid");
+                    }
+                });
+
+            const firstInvalid = current.querySelector(".question.invalid");
+            if (firstInvalid) {
+                firstInvalid.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            }
+
+            return valid;
+        }
+
+        function updateInterface() {
+            document.documentElement.lang = language;
+            document.title =
+                language === "fr"
+                    ? "Questionnaire bilingue — Démonstration"
+                    : "Bilingual questionnaire — Demonstration";
+
+            document.querySelectorAll("[data-ui]").forEach(element => {
+                const key = element.dataset.ui;
+                element.textContent = ui[language][key];
+            });
+
+            document.querySelectorAll(".language-button").forEach(button => {
+                button.classList.toggle(
+                    "active",
+                    button.dataset.language === language
+                );
+            });
+
+            renderPages();
+            updateNavigation();
+        }
+
+        function updateNavigation() {
+            const pages = [...document.querySelectorAll(".page")];
+
+            pages.forEach((page, index) => {
+                page.classList.toggle("active", index === currentPage);
+            });
+
+            previousButton.disabled = currentPage === 0;
+            previousButton.textContent = ui[language].previous;
+            nextButton.textContent =
+                currentPage === pages.length - 1
+                    ? ui[language].finish
+                    : ui[language].next;
+
+            const percentage = Math.round(
+                ((currentPage + 1) / pages.length) * 100
+            );
+
+            progressBar.style.width = `${percentage}%`;
+            progressPercent.textContent = `${percentage} %`;
+            stepLabel.textContent = ui[language].step(
+                currentPage + 1,
+                pages.length
+            );
+        }
+
+        document.querySelectorAll(".language-button").forEach(button => {
+            button.addEventListener("click", () => {
+                if (button.dataset.language === language) {
+                    return;
+                }
+
+                const savedValues = {};
+                data.fields.forEach(field => {
+                    savedValues[field.name] = getValue(field.name);
+                });
+
+                language = button.dataset.language;
+                updateInterface();
+
+                Object.entries(savedValues).forEach(([name, value]) => {
+                    const controls = [
+                        ...form.querySelectorAll(
+                            `[name="${CSS.escape(name)}"]`
+                        )
+                    ];
+
+                    if (Array.isArray(value)) {
+                        controls.forEach(control => {
+                            control.checked = value.includes(control.value);
+                        });
+                    } else if (controls[0]?.type === "radio") {
+                        controls.forEach(control => {
+                            control.checked = control.value === value;
+                        });
+                    } else if (controls[0] && value !== null) {
+                        controls[0].value = value;
+                    }
+                });
+
+                updateBranching();
+            });
+        });
+
+        form.addEventListener("change", updateBranching);
+
+        form.addEventListener("input", event => {
+            event.target
+                .closest(".question")
+                ?.classList.remove("invalid");
+            updateBranching();
+        });
+
+        nextButton.addEventListener("click", () => {
+            if (!validateCurrentPage()) {
+                return;
+            }
+
+            const pages = [...document.querySelectorAll(".page")];
+
+            if (currentPage < pages.length - 1) {
+                currentPage += 1;
+                updateNavigation();
+                updateBranching();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                return;
+            }
+
+            form.style.display = "none";
+            progressWrap.style.display = "none";
+            completion.classList.add("active");
+            completion.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        });
+
+        previousButton.addEventListener("click", () => {
+            if (currentPage === 0) {
+                return;
+            }
+
+            currentPage -= 1;
+            updateNavigation();
+            updateBranching();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        restartButton.addEventListener("click", () => {
+            form.reset();
+            currentPage = 0;
+            completion.classList.remove("active");
+            form.style.display = "block";
+            progressWrap.style.display = "block";
+            updateInterface();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        updateInterface();
+    </script>
+</body>
+</html>

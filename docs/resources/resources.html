@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Plain-language information about epilepsy surgery options for patients and caregivers.">
+    <meta name="theme-color" content="#f4f7ff">
+    <title>Epilepsy Surgery Resources</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #f6f8ff;
+            --surface: rgba(255,255,255,.82);
+            --text: #16213d;
+            --muted: #65708a;
+            --primary: #5367e8;
+            --primary-dark: #3e4fc4;
+            --primary-soft: #e7ebff;
+            --border: rgba(95,108,160,.16);
+            --shadow: 0 14px 40px rgba(64,76,128,.09);
+            --content-width: 1120px;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 10% 12%, rgba(123,107,255,.18), transparent 28rem),
+                radial-gradient(circle at 88% 18%, rgba(58,205,193,.17), transparent 25rem),
+                var(--background);
+            font-family: "Quicksand", sans-serif;
+            line-height: 1.65;
+        }
+        a { color: inherit; }
+        .page-shell { width: min(calc(100% - 2rem), var(--content-width)); margin: 0 auto; }
+        .site-header {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 1rem; padding: 1.5rem 0;
+        }
+        .brand { display: flex; align-items: center; gap: .8rem; text-decoration: none; font-weight: 700; }
+        .brand-logo { width: 4rem; height: 4rem; object-fit: contain; border-radius: .75rem; }
+        .brand-text { display: flex; flex-direction: column; line-height: 1.12; }
+        .brand-name { font-size: .95rem; }
+        .brand-subtitle {
+            margin-top: .2rem; color: var(--muted); font-size: .72rem;
+            font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+        }
+        .back-link {
+            padding: .72rem 1rem; border: 1px solid var(--border); border-radius: 999px;
+            background: rgba(255,255,255,.7); text-decoration: none; font-weight: 700;
+        }
+        main { padding: 2.5rem 0 5rem; }
+        .hero { max-width: 800px; margin: 0 auto 3rem; text-align: center; }
+        .eyebrow {
+            display: inline-block; margin-bottom: 1rem; padding: .5rem .8rem;
+            border-radius: 999px; color: var(--primary-dark); background: var(--primary-soft);
+            font-size: .78rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+        }
+        h1 {
+            margin: 0; font-size: clamp(2.2rem, 5vw, 3.7rem);
+            font-weight: 600; letter-spacing: -.05em; line-height: 1.05;
+        }
+        .intro { margin: 1.3rem auto 0; max-width: 720px; color: var(--muted); font-size: 1.05rem; }
+        .notice {
+            margin: 2rem auto 0; max-width: 760px; padding: 1rem 1.2rem;
+            border: 1px solid var(--border); border-radius: 16px;
+            background: rgba(255,255,255,.72); color: var(--muted);
+        }
+        .options {
+            display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1.25rem;
+        }
+        .option {
+            padding: 1.6rem; border: 1px solid rgba(255,255,255,.9);
+            border-radius: 22px; background: var(--surface); box-shadow: var(--shadow);
+        }
+        .option-number {
+            display: inline-grid; width: 2rem; height: 2rem; place-items: center;
+            margin-bottom: .8rem; border-radius: 50%; color: white; background: var(--primary);
+            font-weight: 700;
+        }
+        h2 { margin: 0; font-size: 1.35rem; line-height: 1.25; }
+        .plain-name { margin: .25rem 0 .9rem; color: var(--primary-dark); font-weight: 700; }
+        .option p { margin: .65rem 0; }
+        .label { font-weight: 700; }
+        .learn-more {
+            display: inline-block; margin-top: .6rem; color: var(--primary-dark);
+            font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 3px;
+        }
+        .next-step {
+            margin-top: 2rem; padding: 1.6rem; border-radius: 22px;
+            color: white; background: linear-gradient(130deg, #18203c, #313b68);
+        }
+        .next-step h2 { font-size: 1.5rem; }
+        .next-step p { margin-bottom: 0; color: rgba(255,255,255,.78); }
+        footer { padding: 2rem 0 2.5rem; color: var(--muted); font-size: .82rem; font-weight: 600; }
+        :focus-visible { outline: 3px solid rgba(83,103,232,.5); outline-offset: 4px; }
+        @media (max-width: 760px) {
+            .page-shell { width: min(calc(100% - 1.25rem), var(--content-width)); }
+            .brand-subtitle { display: none; }
+            .options { grid-template-columns: 1fr; }
+            main { padding-top: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="page-shell">
+    <header class="site-header">
+        <a class="brand" href="index.html">
+            <img class="brand-logo" src="../images/SLIC_transp.png" alt="SLIC logo">
+            <span class="brand-text">
+                <span class="brand-name">A research project by the</span>
+                <span class="brand-subtitle">Sherbrooke Laboratory for Integrative Connectomics</span>
+            </span>
+        </a>
+        <a class="back-link" href="../index.html">← Back to study</a>
+    </header>
+
+    <main>
+        <section class="hero">
+            <span class="eyebrow">Patient and caregiver resource</span>
+            <h1>Epilepsy surgery options</h1>
+            <p class="intro">
+                There are many types of epilepsy surgery. Some remove or treat a small part of the brain that causes seizures.
+                Others use a device to change brain signals. The best choice depends on where seizures start and
+                which parts of the brain need to stay safe.
+            </p>
+            <p class="notice">
+                This page gives general information. It cannot tell you which treatment is right for you.
+                An epilepsy team can explain the possible benefits and risks for your situation.
+            </p>
+        </section>
+
+        <section class="options" aria-label="Epilepsy surgery options">
+            <article class="option">
+                <span class="option-number">1</span>
+                <h2>Open resection</h2>
+                <p class="plain-name">Removing the area where seizures start</p>
+                <p><span class="label">What it is:</span> A surgeon opens the skull and removes the brain area that causes seizures. A lobectomy removes part of one brain lobe.</p>
+                <p><span class="label">When it may be used:</span> It may be an option when seizures start in one clear area that doctors can remove safely.</p>
+                <p><span class="label">Main goal:</span> To stop seizures or reduce how often they happen.</p>
+                <a class="learn-more" href="https://www.epilepsy.com/treatment/surgery/types" target="_blank" rel="noopener noreferrer">Learn more from the Epilepsy Foundation →</a>
+            </article>
+
+            <article class="option">
+                <span class="option-number">2</span>
+                <h2>Laser ablation (LITT)</h2>
+                <p class="plain-name">Treating a small area with heat from a laser</p>
+                <p><span class="label">What it is:</span> A thin laser probe goes into the brain. MRI helps the team find the right spot. Heat from the laser treats the tissue that causes seizures.</p>
+                <p><span class="label">When it may be used:</span> It may help when seizures come from a small, well-defined area.</p>
+                <p><span class="label">Main goal:</span> To treat the seizure source through a small opening.</p>
+                <a class="learn-more" href="https://www.epilepsy.com/treatment/surgery/types" target="_blank" rel="noopener noreferrer">Learn more from the Epilepsy Foundation →</a>
+            </article>
+
+            <article class="option">
+                <span class="option-number">3</span>
+                <h2>Stereotactic radiosurgery</h2>
+                <p class="plain-name">Treating the seizure area with focused radiation</p>
+                <p><span class="label">What it is:</span> Radiation beams are aimed at a small target in the brain. The skull does not need to be opened. Gamma Knife and CyberKnife are two systems that can do this.</p>
+                <p><span class="label">When it may be used:</span> It may be an option when doctors can target the seizure area very closely.</p>
+                <p><span class="label">Main goal:</span> To treat the tissue causing seizures while limiting radiation to nearby areas.</p>
+                <a class="learn-more" href="https://www.epilepsy.com/treatment/surgery/types" target="_blank" rel="noopener noreferrer">Learn more from the Epilepsy Foundation →</a>
+            </article>
+
+            <article class="option">
+                <span class="option-number">4</span>
+                <h2>Deep brain stimulation (DBS)</h2>
+                <p class="plain-name">Sending regular electrical signals to the brain</p>
+                <p><span class="label">What it is:</span> A surgeon places thin wires in a deep part of the brain. A small device under the skin of the chest sends signals through the wires.</p>
+                <p><span class="label">When it may be used:</span> It may be an option when seizures are hard to control and the seizure area cannot be removed safely.</p>
+                <p><span class="label">Main goal:</span> To reduce seizures by changing brain signals.</p>
+                <a class="learn-more" href="https://www.epilepsy.com/treatment/devices/deep-brain-stimulation" target="_blank" rel="noopener noreferrer">Learn more from the Epilepsy Foundation →</a>
+            </article>
+
+            <article class="option">
+                <span class="option-number">5</span>
+                <h2>Vagus nerve stimulation (VNS)</h2>
+                <p class="plain-name">Sending electrical signals through a nerve in the neck</p>
+                <p><span class="label">What it is:</span> A small device is placed under the skin of the chest. A wire joins it to a nerve in the neck called the vagus nerve. The device sends small signals at set times.</p>
+                <p><span class="label">When it may be used:</span> It may be an option when medicines do not control seizures and other surgery is not a good choice.</p>
+                <p><span class="label">Main goal:</span> To reduce how often seizures happen or how severe they are.</p>
+                <a class="learn-more" href="https://www.epilepsy.com/tools-resources/forms-resources/non-medication-treatment-factsheets" target="_blank" rel="noopener noreferrer">Learn more from the Epilepsy Foundation →</a>
+            </article>
+
+            <article class="option">
+                <span class="option-number">6</span>
+                <h2>Radiofrequency thermocoagulation (RF-TC)</h2>
+                <p class="plain-name">Treating a small seizure area with heat</p>
+                <p><span class="label">What it is:</span> A doctor uses a thin wire in the brain to heat a small area linked to seizures. Sometimes the same wires used to find where seizures start can give this treatment.</p>
+                <p><span class="label">When it may be used:</span> It may be an option when doctors can find and safely reach a small seizure area.</p>
+                <p><span class="label">Main goal:</span> To reduce seizures by treating the tissue where they begin.</p>
+            </article>
+
+            <article class="option">
+                <span class="option-number">7</span>
+                <h2>Responsive neurostimulation (RNS)</h2>
+                <p class="plain-name">A device that detects and responds to seizure activity</p>
+                <p><span class="label">What it is:</span> A device watches brain signals. When it finds unusual activity, it sends a small electrical pulse to the seizure area.</p>
+                <p><span class="label">When it may be used:</span> It may help some people with focal seizures when the seizure area cannot be removed safely or other surgery has not worked.</p>
+                <p><span class="label">Main goal:</span> To reduce seizures by responding when abnormal brain activity begins.</p>
+                <a class="learn-more" href="https://www.epilepsy.com/treatment/devices/responsive-neurostimulation" target="_blank" rel="noopener noreferrer">Learn more from the Epilepsy Foundation →</a>
+            </article>
+
+            <article class="option">
+                <span class="option-number">8</span>
+                <h2>MRI-guided focused ultrasound</h2>
+                <p class="plain-name">Using focused sound waves to heat a small brain target</p>
+                <p><span class="label">What it is:</span> Focused ultrasound sends sound waves to one small spot in the brain. The waves can heat and treat a small amount of tissue. MRI helps the team guide the treatment.</p>
+                <p><span class="label">For epilepsy:</span> Doctors are still studying this treatment for epilepsy. It is not a standard option for most people.</p>
+                <p><span class="label">Main goal:</span> Researchers are studying whether it can treat seizure areas without open surgery.</p>
+            </article>
+        </section>
+
+        <section class="next-step">
+            <h2>How is an option chosen?</h2>
+            <p>
+                Before surgery, an epilepsy team uses tests such as EEG and MRI. These tests help show where seizures start
+                and what nearby brain areas do. The team looks at the possible benefits and risks. The right choice
+                is different for each person.
+            </p>
+        </section>
+    </main>
+
+    <footer>Beliefs about Epilepsy Surgery in Québec | 2026</footer>
+</div>
+</body>
+</html>
