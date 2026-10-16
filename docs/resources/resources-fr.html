@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Information en langage simple sur les options de chirurgie de l’épilepsie pour les patients et les proches aidants.">
+    <meta name="theme-color" content="#f4f7ff">
+    <title>Ressources sur la chirurgie de l’épilepsie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #f6f8ff;
+            --surface: rgba(255,255,255,.82);
+            --text: #16213d;
+            --muted: #65708a;
+            --primary: #5367e8;
+            --primary-dark: #3e4fc4;
+            --primary-soft: #e7ebff;
+            --border: rgba(95,108,160,.16);
+            --shadow: 0 14px 40px rgba(64,76,128,.09);
+            --content-width: 1120px;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 10% 12%, rgba(123,107,255,.18), transparent 28rem),
+                radial-gradient(circle at 88% 18%, rgba(58,205,193,.17), transparent 25rem),
+                var(--background);
+            font-family: "Quicksand", sans-serif;
+            line-height: 1.65;
+        }
+        a { color: inherit; }
+        .page-shell { width: min(calc(100% - 2rem), var(--content-width)); margin: 0 auto; }
+        .site-header {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 1rem; padding: 1.5rem 0;
+        }
+        .brand { display: flex; align-items: center; gap: .8rem; text-decoration: none; font-weight: 700; }
+        .brand-logo { width: 4rem; height: 4rem; object-fit: contain; border-radius: .75rem; }
+        .brand-text { display: flex; flex-direction: column; line-height: 1.12; }
+        .brand-name { font-size: .95rem; }
+        .brand-subtitle {
+            margin-top: .2rem; color: var(--muted); font-size: .72rem;
+            font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+        }
+        .back-link {
+            padding: .72rem 1rem; border: 1px solid var(--border); border-radius: 999px;
+            background: rgba(255,255,255,.7); text-decoration: none; font-weight: 700;
+        }
+        .header-actions { display: flex; align-items: center; gap: .6rem; }
+        .lang-switch {
+            display: inline-flex; padding: .25rem; border: 1px solid var(--border);
+            border-radius: 999px; background: rgba(255,255,255,.7);
+        }
+        .lang-switch a {
+            padding: .45rem .75rem; border-radius: 999px; text-decoration: none;
+            font-size: .85rem; font-weight: 700; color: var(--muted);
+        }
+        .lang-switch a[aria-current="page"] { color: white; background: var(--primary); }
+        main { padding: 2.5rem 0 5rem; }
+        .hero { max-width: 800px; margin: 0 auto 3rem; text-align: center; }
+        .eyebrow {
+            display: inline-block; margin-bottom: 1rem; padding: .5rem .8rem;
+            border-radius: 999px; color: var(--primary-dark); background: var(--primary-soft);
+            font-size: .78rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+        }
+        h1 {
+            margin: 0; font-size: clamp(2.2rem, 5vw, 3.7rem);
+            font-weight: 600; letter-spacing: -.05em; line-height: 1.05;
+        }
+        .intro { margin: 1.3rem auto 0; max-width: 720px; color: var(--muted); font-size: 1.05rem; }
+        .notice {
+            margin: 2rem auto 0; max-width: 760px; padding: 1rem 1.2rem;
+            border: 1px solid var(--border); border-radius: 16px;
+            background: rgba(255,255,255,.72); color: var(--muted);
+        }
+        .options {
+            display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1.25rem;
+        }
+        .option {
+            padding: 1.6rem; border: 1px solid rgba(255,255,255,.9);
+            border-radius: 22px; background: var(--surface); box-shadow: var(--shadow);
+        }
+        .option-number {
+            display: inline-grid; width: 2rem; height: 2rem; place-items: center;
+            margin-bottom: .8rem; border-radius: 50%; color: white; background: var(--primary);
+            font-weight: 700;
+        }
+        h2 { margin: 0; font-size: 1.35rem; line-height: 1.25; }
+        .plain-name { margin: .25rem 0 .9rem; color: var(--primary-dark); font-weight: 700; }
+        .option p { margin: .65rem 0; }
+        .label { font-weight: 700; }
+        .learn-more {
+            display: inline-block; margin-top: .6rem; color: var(--primary-dark);
+            font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 3px;
+        }
+        .next-step {
+            margin-top: 2rem; padding: 1.6rem; border-radius: 22px;
+            color: white; background: linear-gradient(130deg, #18203c, #313b68);
+        }
+        .next-step h2 { font-size: 1.5rem; }
+        .next-step p { margin-bottom: 0; color: rgba(255,255,255,.78); }
+        footer { padding: 2rem 0 2.5rem; color: var(--muted); font-size: .82rem; font-weight: 600; }
+        :focus-visible { outline: 3px solid rgba(83,103,232,.5); outline-offset: 4px; }
+        @media (max-width: 760px) {
+            .page-shell { width: min(calc(100% - 1.25rem), var(--content-width)); }
+            .brand-subtitle { display: none; }
+            .site-header { flex-wrap: wrap; }
+            .back-link { white-space: nowrap; }
+            .options { grid-template-columns: 1fr; }
+            main { padding-top: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="page-shell">
+    <header class="site-header">
+        <a class="brand" href="../index-fr.html">
+            <img class="brand-logo" src="../images/SLIC_transp.png" alt="Logo du SLIC">
+            <span class="brand-text">
+                <span class="brand-name">Un projet de recherche du</span>
+                <span class="brand-subtitle">Laboratoire de connectomique intégrative de Sherbrooke</span>
+            </span>
+        </a>
+        <div class="header-actions">
+            <nav class="lang-switch" aria-label="Langue">
+                <a href="resources.html" hreflang="en" lang="en">EN</a>
+                <a href="resources-fr.html" hreflang="fr" lang="fr" aria-current="page">FR</a>
+            </nav>
+            <a class="back-link" href="../index-fr.html">← Retour à l’étude</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <span class="eyebrow">Ressource pour les patients et les proches aidants</span>
+            <h1>Les options de chirurgie de l’épilepsie</h1>
+            <p class="intro">
+                Il existe plusieurs types de chirurgie de l’épilepsie. Certaines enlèvent ou traitent une petite partie du cerveau qui cause les crises.
+                D’autres utilisent un appareil pour modifier les signaux du cerveau. Le meilleur choix dépend de l’endroit où les crises commencent
+                et des parties du cerveau qu’il faut protéger.
+            </p>
+            <p class="notice">
+                Cette page donne de l’information générale. Elle ne peut pas vous dire quel traitement vous convient.
+                Une équipe spécialisée en épilepsie peut vous expliquer les bienfaits et les risques possibles selon votre situation.
+            </p>
+        </section>
+
+        <section class="options" aria-label="Options de chirurgie de l’épilepsie">
+            <article class="option">
+                <span class="option-number">1</span>
+                <h2>Résection chirurgicale</h2>
+                <p class="plain-name">Enlever la zone où les crises commencent</p>
+                <p><span class="label">Ce que c’est :</span> Un chirurgien ouvre le crâne et enlève la zone du cerveau qui cause les crises. Une lobectomie enlève une partie d’un lobe du cerveau.</p>
+                <p><span class="label">Quand on peut l’utiliser :</span> Ce peut être une option quand les crises commencent dans une zone précise que les médecins peuvent enlever de façon sécuritaire.</p>
+                <p><span class="label">Objectif principal :</span> Arrêter les crises ou les rendre moins fréquentes.</p>
+                <a class="learn-more" href="https://www.epilepsy.com/treatment/surgery/types" hreflang="en" target="_blank" rel="noopener noreferrer">En savoir plus auprès de l’Epilepsy Foundation (en anglais) →</a>
+            </article>
+
+            <article class="option">
+                <span class="option-number">2</span>
+                <h2>Ablation au laser (LITT)</h2>
+                <p class="plain-name">Traiter une petite zone avec la chaleur d’un laser</p>
+                <p><span class="label">Ce que c’est :</span> Une fine sonde laser est insérée dans le cerveau. L’IRM aide l’équipe à trouver le bon endroit. La chaleur du laser traite le tissu qui cause les crises.</p>
+                <p><span class="label">Quand on peut l’utiliser :</span> Ce traitement peut aider quand les crises viennent d’une petite zone bien délimitée.</p>
+                <p><span class="label">Objectif principal :</span> Traiter la source des crises par une petite ouverture.</p>
+                <a class="learn-more" href="https://www.epilepsy.com/treatment/surgery/types" hreflang="en" target="_blank" rel="noopener noreferrer">En savoir plus auprès de l’Epilepsy Foundation (en anglais) →</a>
+            </article>
+
+            <article class="option">
+                <span class="option-number">3</span>
+                <h2>Radiochirurgie stéréotaxique</h2>
+                <p class="plain-name">Traiter la zone des crises avec des rayons ciblés</p>
+                <p><span class="label">Ce que c’est :</span> Des faisceaux de rayons sont dirigés vers une petite cible dans le cerveau. Il n’est pas nécessaire d’ouvrir le crâne. Le Gamma Knife et le CyberKnife sont deux appareils qui permettent de le faire.</p>
+                <p><span class="label">Quand on peut l’utiliser :</span> Ce peut être une option quand les médecins peuvent cibler la zone des crises de façon très précise.</p>
+                <p><span class="label">Objectif principal :</span> Traiter le tissu qui cause les crises tout en limitant les rayons aux zones voisines.</p>
+                <a class="learn-more" href="https://www.epilepsy.com/treatment/surgery/types" hreflang="en" target="_blank" rel="noopener noreferrer">En savoir plus auprès de l’Epilepsy Foundation (en anglais) →</a>
+            </article>
+
+            <article class="option">
+                <span class="option-number">4</span>
+                <h2>Stimulation cérébrale profonde (SCP)</h2>
+                <p class="plain-name">Envoyer des signaux électriques réguliers au cerveau</p>
+                <p><span class="label">Ce que c’est :</span> Un chirurgien place de fins fils dans une partie profonde du cerveau. Un petit appareil placé sous la peau de la poitrine envoie des signaux par ces fils.</p>
+                <p><span class="label">Quand on peut l’utiliser :</span> Ce peut être une option quand les crises sont difficiles à contrôler et que la zone des crises ne peut pas être enlevée de façon sécuritaire.</p>
+                <p><span class="label">Objectif principal :</span> Réduire les crises en modifiant les signaux du cerveau.</p>
+                <a class="learn-more" href="https://www.epilepsy.com/treatment/devices/deep-brain-stimulation" hreflang="en" target="_blank" rel="noopener noreferrer">En savoir plus auprès de l’Epilepsy Foundation (en anglais) →</a>
+            </article>
+
+            <article class="option">
+                <span class="option-number">5</span>
+                <h2>Stimulation du nerf vague (SNV)</h2>
+                <p class="plain-name">Envoyer des signaux électriques par un nerf du cou</p>
+                <p><span class="label">Ce que c’est :</span> Un petit appareil est placé sous la peau de la poitrine. Un fil le relie à un nerf du cou appelé le nerf vague. L’appareil envoie de petits signaux à des moments réguliers.</p>
+                <p><span class="label">Quand on peut l’utiliser :</span> Ce peut être une option quand les médicaments ne contrôlent pas les crises et qu’une autre chirurgie n’est pas un bon choix.</p>
+                <p><span class="label">Objectif principal :</span> Rendre les crises moins fréquentes ou moins fortes.</p>
+                <a class="learn-more" href="https://www.epilepsy.com/tools-resources/forms-resources/non-medication-treatment-factsheets" hreflang="en" target="_blank" rel="noopener noreferrer">En savoir plus auprès de l’Epilepsy Foundation (en anglais) →</a>
+            </article>
+
+            <article class="option">
+                <span class="option-number">6</span>
+                <h2>Thermocoagulation par radiofréquence (TC-RF)</h2>
+                <p class="plain-name">Traiter une petite zone des crises avec de la chaleur</p>
+                <p><span class="label">Ce que c’est :</span> Un médecin utilise un fin fil placé dans le cerveau pour chauffer une petite zone liée aux crises. Parfois, les mêmes fils qui servent à trouver où les crises commencent peuvent aussi donner ce traitement.</p>
+                <p><span class="label">Quand on peut l’utiliser :</span> Ce peut être une option quand les médecins peuvent trouver une petite zone des crises et l’atteindre de façon sécuritaire.</p>
+                <p><span class="label">Objectif principal :</span> Réduire les crises en traitant le tissu où elles commencent.</p>
+            </article>
+
+            <article class="option">
+                <span class="option-number">7</span>
+                <h2>Neurostimulation réactive (RNS)</h2>
+                <p class="plain-name">Un appareil qui détecte l’activité des crises et y réagit</p>
+                <p><span class="label">Ce que c’est :</span> Un appareil surveille les signaux du cerveau. Quand il détecte une activité inhabituelle, il envoie une petite impulsion électrique à la zone des crises.</p>
+                <p><span class="label">Quand on peut l’utiliser :</span> Ce traitement peut aider certaines personnes qui ont des crises focales, quand la zone des crises ne peut pas être enlevée de façon sécuritaire ou qu’une autre chirurgie n’a pas fonctionné.</p>
+                <p><span class="label">Objectif principal :</span> Réduire les crises en réagissant dès que l’activité anormale du cerveau commence.</p>
+                <a class="learn-more" href="https://www.epilepsy.com/treatment/devices/responsive-neurostimulation" hreflang="en" target="_blank" rel="noopener noreferrer">En savoir plus auprès de l’Epilepsy Foundation (en anglais) →</a>
+            </article>
+
+            <article class="option">
+                <span class="option-number">8</span>
+                <h2>Ultrasons focalisés guidés par IRM</h2>
+                <p class="plain-name">Utiliser des ondes sonores ciblées pour chauffer une petite zone du cerveau</p>
+                <p><span class="label">Ce que c’est :</span> Les ultrasons focalisés envoient des ondes sonores vers un petit point du cerveau. Ces ondes peuvent chauffer et traiter une petite quantité de tissu. L’IRM aide l’équipe à guider le traitement.</p>
+                <p><span class="label">Pour l’épilepsie :</span> Les médecins étudient encore ce traitement pour l’épilepsie. Ce n’est pas une option courante pour la plupart des gens.</p>
+                <p><span class="label">Objectif principal :</span> Les chercheurs étudient s’il peut traiter les zones des crises sans chirurgie ouverte.</p>
+            </article>
+        </section>
+
+        <section class="next-step">
+            <h2>Comment choisit-on une option?</h2>
+            <p>
+                Avant la chirurgie, une équipe spécialisée en épilepsie fait passer des examens comme l’EEG et l’IRM. Ces examens aident à voir où les crises commencent
+                et à quoi servent les zones du cerveau situées tout près. L’équipe évalue les bienfaits et les risques possibles. Le bon choix
+                est différent pour chaque personne.
+            </p>
+        </section>
+    </main>
+
+    <footer>Croyances sur la chirurgie de l’épilepsie au Québec | 2026</footer>
+</div>
+</body>
+</html>
