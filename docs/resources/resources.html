@@ -53,6 +53,16 @@
             padding: .72rem 1rem; border: 1px solid var(--border); border-radius: 999px;
             background: rgba(255,255,255,.7); text-decoration: none; font-weight: 700;
         }
+        .header-actions { display: flex; align-items: center; gap: .6rem; }
+        .lang-switch {
+            display: inline-flex; padding: .25rem; border: 1px solid var(--border);
+            border-radius: 999px; background: rgba(255,255,255,.7);
+        }
+        .lang-switch a {
+            padding: .45rem .75rem; border-radius: 999px; text-decoration: none;
+            font-size: .85rem; font-weight: 700; color: var(--muted);
+        }
+        .lang-switch a[aria-current="page"] { color: white; background: var(--primary); }
         main { padding: 2.5rem 0 5rem; }
         .hero { max-width: 800px; margin: 0 auto 3rem; text-align: center; }
         .eyebrow {
@@ -101,6 +111,8 @@
         @media (max-width: 760px) {
             .page-shell { width: min(calc(100% - 1.25rem), var(--content-width)); }
             .brand-subtitle { display: none; }
+            .site-header { flex-wrap: wrap; }
+            .back-link { white-space: nowrap; }
             .options { grid-template-columns: 1fr; }
             main { padding-top: 1rem; }
         }
@@ -109,14 +121,20 @@
 <body>
 <div class="page-shell">
     <header class="site-header">
-        <a class="brand" href="index.html">
+        <a class="brand" href="../index.html">
             <img class="brand-logo" src="../images/SLIC_transp.png" alt="SLIC logo">
             <span class="brand-text">
                 <span class="brand-name">A research project by the</span>
                 <span class="brand-subtitle">Sherbrooke Laboratory for Integrative Connectomics</span>
             </span>
         </a>
-        <a class="back-link" href="../index.html">← Back to study</a>
+        <div class="header-actions">
+            <nav class="lang-switch" aria-label="Language">
+                <a href="resources.html" hreflang="en" lang="en" aria-current="page">EN</a>
+                <a href="resources-fr.html" hreflang="fr" lang="fr">FR</a>
+            </nav>
+            <a class="back-link" href="../index.html">← Back to study</a>
+        </div>
     </header>
 
     <main>
